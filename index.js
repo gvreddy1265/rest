@@ -2,6 +2,7 @@ const Joi= require('joi');
 const express = require('express');
 const app= express();
 app.use(express.json());
+const PORT = process.env.PORT || 5000
 
 const gateways= [
     { id: 1, site: 'Oklahoma'},
@@ -32,4 +33,4 @@ gateways.push(gateway);
 res.send(gateway);
 });
 
-app.listen(3000, ()=> console.log("Server running on port 3000..."));
+app.listen(PORT, ()=> console.log(`Server running on port ${PORT}...`));
