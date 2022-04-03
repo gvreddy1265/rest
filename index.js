@@ -2,12 +2,10 @@ const Joi= require('joi');
 const express = require('express');
 const app= express();
 app.use(express.json());
-const PORT = process.env.PORT || 5000
+const gateways=require('./data/gateways.json');
+const PORT = process.env.PORT || 5000;
 
-const gateways= [
-    { id: 1, site: 'Oklahoma'},
-    { id: 2, site: 'Newjersey'}
-];
+
 app.get('/', (req,res)=>{
 res.send('hello express');
 });
@@ -33,4 +31,24 @@ gateways.push(gateway);
 res.send(gateway);
 });
 
+app.put('/gateways/:id', (req,res)=>{
+
+});
+
+app.delete('/gateways/:id', (req,res)=>{
+    const { id } = req.params;
+    console.log(`id ${id}`);
+removeById(gateways, id);
+
+res.send(gateways);
+});
+const removeById = (arr, id) => {
+    const requiredIndex = arr.findIndex(el => {
+       return el.id === parseInt(id);
+    });
+    if(requiredIndex === -1){
+       return false;
+    };
+    return !!gateways.splice(requiredIndex, 1);
+ };
 app.listen(PORT, ()=> console.log(`Server running on port ${PORT}...`));
