@@ -1,0 +1,17 @@
+{
+	"folders": [
+		{
+			"path": "../first-node-app"
+		},
+		{
+			"path": "../express-demo"
+		},
+		{
+			"path": "."
+		},
+		{
+			"path": "../node-js-getting-started"
+		}
+	],
+	"settings": {}
+}

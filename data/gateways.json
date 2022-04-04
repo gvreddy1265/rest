@@ -1,4 +1,4 @@
 [
-    { "id": 1, "site": "Oklahoma"},
-    { "id": 2, "site": "Newjersey"}
+    { "id": 1, "name": "Oklahoma"},
+    { "id": 2, "name": "Newjersey"}
 ]
