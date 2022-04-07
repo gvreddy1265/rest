@@ -2,7 +2,7 @@ const Joi = require('joi');
 const express = require('express');
 const app = express();
 app.use(express.json());
-const employees = require('./data/employees.json');
+const gateways = require('./data/gateways.json');
 const PORT = process.env.PORT || 3000;
 
 
@@ -10,11 +10,11 @@ app.get('/', (req, res) => {
     res.send('hello express');
 });
 
-app.get('/api/employees', (req, res) => {
-    res.send(employees);
+app.get('/gateways', (req, res) => {
+    res.send(gateways);
 });
 
-app.post('/employees', (req, res) => {
+app.post('/gateways', (req, res) => {
     const schema = Joi.object({
         name: Joi.string().min(3).required(),
     });
@@ -24,10 +24,10 @@ app.post('/employees', (req, res) => {
         return;
     }
     const gateway = {
-        id: employees.length + 1,
+        id: gateways.length + 1,
         name: req.body.name
     };
-    employees.push(gateway);
+    gateways.push(gateway);
     res.send(gateway);
 });
 
@@ -35,13 +35,13 @@ app.put('/gateways/:id', (req, res) => {
     const { id } = req.params;
     const { name } = req.body;
 
-    updateById(employees, id, name);
-    res.send(employees);
+    updateById(gateways, id, name);
+    res.send(gateways);
 });
 app.get('/gateways/:id', (req, res) => {
     const { id } = req.params;
     console.log(`id ${id}`);
-    const result = getById(employees, id);
+    const result = getById(gateways, id);
 
     res.send(result);
 });
@@ -49,9 +49,9 @@ app.get('/gateways/:id', (req, res) => {
 app.delete('/gateways/:id', (req, res) => {
     const { id } = req.params;
     console.log(`id ${id}`);
-    removeById(employees, id);
+    removeById(gateways, id);
 
-    res.send(employees);
+    res.send(gateways);
 });
 const removeById = (arr, id) => {
     const requiredIndex = arr.findIndex(el => {
@@ -60,15 +60,15 @@ const removeById = (arr, id) => {
     if (requiredIndex === -1) {
         return false;
     };
-    return !!employees.splice(requiredIndex, 1);
+    return !!gateways.splice(requiredIndex, 1);
 };
 
 const updateById = (arr, id, name) => {
     const requiredIndex = arr.findIndex(el => {
         return el.id === parseInt(id);
     });
-    employees[requiredIndex].name = name;
-    return employees;
+    gateways[requiredIndex].name = name;
+    return gateways;
 };
 
 const getById = (arr, id, name) => {
@@ -76,6 +76,6 @@ const getById = (arr, id, name) => {
         return el.id === parseInt(id);
     });
 
-    return employees[requiredIndex];
+    return gateways[requiredIndex];
 };
 app.listen(PORT, () => console.log(`Server running on port ${PORT}...`));
