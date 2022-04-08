@@ -9,11 +9,11 @@ app.get('/', (req, res) => {
     res.send('hello oneauto');
 });
 
-app.get('/api/employees', (req, res) => {
+app.get('/employees', (req, res) => {
     res.send(employeesJsonObj);
 });
 
-app.post('/api/employees', (req, res) => {
+app.post('/employees', (req, res) => {
     const schema = Joi.object({
         userId: Joi.string().min(3).required(),
         jobTitleName: Joi.string().min(3).required(),
@@ -46,14 +46,14 @@ app.post('/api/employees', (req, res) => {
     res.send(emp);
 });
 
-app.put('/api/employees/:id', (req, res) => {
+app.put('/employees/:id', (req, res) => {
     const { id } = req.params;
     const { firstName } = req.body;
 
     updateById(employeesJsonObj.Employees, id, firstName);
     res.send(getById(employeesJsonObj.Employees,id));
 });
-app.get('/api/employees/:id', (req, res) => {
+app.get('/employees/:id', (req, res) => {
     const { id } = req.params;
     console.log(`id ${id}`);
     const result = getById(employeesJsonObj.Employees, id);
@@ -61,7 +61,7 @@ app.get('/api/employees/:id', (req, res) => {
     res.send(result);
 });
 
-app.delete('/api/employees/:id', (req, res) => {
+app.delete('/employees/:id', (req, res) => {
     const { id } = req.params;
     console.log(`id ${id}`);
     removeById(employeesJsonObj.Employees, id);
