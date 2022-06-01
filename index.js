@@ -123,7 +123,7 @@ app.put('/employees/:id', (req, res) => {
 	let token = req.headers.authorization;
 	if (validateToken(token, res, req.method) == true) {
 		if (acceptHeader == '*/*' || acceptHeader == 'application/json') {
-			if (contentHeader == '*/*' || contentHeader == 'application/json') {
+			//if (contentHeader == '*/*' || contentHeader == 'application/json') {
 				const result = getById(employeesJsonObj.Employees, id);
 				if (result == null) {
 					res.status(404).send('No such employee found');
@@ -131,9 +131,9 @@ app.put('/employees/:id', (req, res) => {
 					updateById(employeesJsonObj.Employees, id, firstName);
 					res.status(200).send(getById(employeesJsonObj.Employees, id));
 				}
-			} else {
-				res.status(415).send("Invalid Content-type header");
-			}
+			// } else {
+			// 	res.status(415).send("Invalid Content-type header");
+			// }
 		} else {
 			res.status(406).send("Invalid Accept Header");
 		}
