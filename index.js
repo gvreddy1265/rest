@@ -34,7 +34,7 @@ app.get('/employees', (req, res) => {
 			console.log('in reg');
 			var output = employeesJsonObj.Employees.filter(x => x.region == region ).flat();
 			employeesJsonObjEmpty.Employees.length=0;
-			employeesJsonObjEmpty.Employees.push(output);
+			employeesJsonObjEmpty.Employees.push(output).flat();
 			res.send(employeesJsonObjEmpty);
 		}else{
 			res.send(employeesJsonObj);
