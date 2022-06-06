@@ -4,6 +4,7 @@ global.crypto = require('crypto')
 const app = express();
 app.use(express.json());
 let employeesJsonObj = require('./data/employees.json');
+let employeesJsonObjEmpty = require('./data/employeesEmpty.json');
 let users = require('./data/users.json');
 let oauthJsonObj = require('./data/Auth.json');
 const PORT = process.env.PORT || 3000;
@@ -31,11 +32,9 @@ app.get('/employees', (req, res) => {
 		
 		if(region){
 			console.log('in reg');
-			var output = employeesJsonObj.Employees.filter(x => x.region == region ).toString();
-			var str1 = "{\"Employees\": ";
-			var str2 = "}";
-			 output = str1.concat(output);
-			res.send(output.concat(str2));
+			var output = employeesJsonObj.Employees.filter(x => x.region == region );
+			
+			res.send(employeesJsonObjEmpty.Employees.push(output));
 		}else{
 			res.send(employeesJsonObj);
 		}
