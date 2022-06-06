@@ -33,10 +33,9 @@ app.get('/employees', (req, res) => {
 		if(region){
 			console.log('in reg');
 			var output = employeesJsonObj.Employees.filter(x => x.region == region );
-
-			let result= require('./data/employeesEmpty.json');
-			result.Employees.push(output);
-			res.send(result);
+			employeesJsonObjEmpty.Employees.length=0;
+			employeesJsonObjEmpty.Employees.push(output);
+			res.send(employeesJsonObjEmpty);
 		}else{
 			res.send(employeesJsonObj);
 		}
