@@ -32,7 +32,7 @@ app.get('/employees', (req, res) => {
 		if(region){
 			console.log('in reg');
 			var output = employeesJsonObj.Employees.filter(x => x.region == region );
-			var str1 = "{/"Employees/": ";
+			var str1 = "{\"Employees\": ";
 			var str2 = "}";
 			 output = str1.concat(output);
 			res.send(output.concat(str2));
