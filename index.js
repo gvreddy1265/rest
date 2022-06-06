@@ -33,8 +33,8 @@ app.get('/employees', (req, res) => {
 		if(region){
 			console.log('in reg');
 			var output = employeesJsonObj.Employees.filter(x => x.region == region );
-			
-			res.send(employeesJsonObjEmpty.Employees.push(output));
+			employeesJsonObjEmpty.Employees.push(output);
+			res.send(employeesJsonObjEmpty);
 		}else{
 			res.send(employeesJsonObj);
 		}
