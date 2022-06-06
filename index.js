@@ -36,6 +36,7 @@ app.get('/employees', (req, res) => {
 			let result=employeesJsonObjEmpty;
 			result.Employees.push(output);
 			res.send(result);
+			result=null;
 		}else{
 			res.send(employeesJsonObj);
 		}
