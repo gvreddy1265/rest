@@ -1,3 +1,4 @@
+'use strict'
 const Joi = require('joi');
 const express = require('express');
 global.crypto = require('crypto')
@@ -8,6 +9,70 @@ let employeesJsonObjEmpty = require('./data/employeesEmpty.json');
 let users = require('./data/users.json');
 let oauthJsonObj = require('./data/Auth.json');
 const PORT = process.env.PORT || 3000;
+
+const pg = require('pg')
+const config = {
+	host:'ec2-52-44-13-158.compute-1.amazonaws.com',
+    user: 'gwfpsfpvhiojpa',
+    database: 'd5es6frbodcul7',
+    password: '8873df25e245404614643fcca75d1e730e805efa88eaaa9e972158dc4254ae70',
+    port: 5432,  
+    ssl: {
+      rejectUnauthorized: false
+    }
+};
+
+// pool takes the object above -config- as parameter
+const pool = new pg.Pool(config);
+//************************************WELCOME-DB-STARTS******************************************* */
+app.get('/dbusers', function (req, res, next) {
+  pool.connect(function (err, client, done) {
+    if (err) {
+      // pass the error to the express error handler
+      return next(err)
+    }
+    client.query('SELECT name, age FROM users;', [], function (err, result) {
+      done()
+
+      if (err) {
+        // pass the error to the express error handler
+        return next(err)
+      }
+
+      res.json(result.rows)
+    })
+  })
+});
+//************************************WELCOME-DB-ENDS******************************************* */
+
+
+//************************************WELCOME-POST USER- DB STARTS******************************************* */
+
+app.post('/dbusers', function (req, res, next) {
+  const user = req.body
+
+  pool.connect(function (err, client, done) {
+    if (err) {
+      // pass the error to the express error handler
+      return next(err)
+    }
+    client.query('INSERT INTO users (name, age) VALUES ($1, $2);', [user.name, user.age], function (err, result) {
+      done() //this done callback signals the pg driver that the connection can be closed or returned to the connection pool
+
+      if (err) {
+        // pass the error to the express error handler
+        return next(err)
+      }
+
+      res.send(201)
+    })
+  })
+});
+
+//************************************WELCOME-POST USER- DB-ENDS******************************************* */
+
+
+
 
 
 //************************************WELCOME-START******************************************* */
